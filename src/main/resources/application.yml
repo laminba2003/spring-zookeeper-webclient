@@ -1,0 +1,18 @@
+server:
+  port: 9092
+
+spring:
+  application:
+    name: spring-zookeeper-webclient
+  cloud:
+    zookeeper:
+      connect-string: localhost:2181
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+remote:
+  services:
+    url: http://spring-zookeeper
