@@ -46,6 +46,11 @@ spring:
   cloud:
       zookeeper:
         connect-string: localhost:2181
+        dependencies:
+          spring-zookeeper:
+            path: /spring-zookeeper
+            loadBalancerType: ROUND_ROBIN
+            required: true
 
 remote:
   services:
@@ -90,14 +95,13 @@ Load balancing is the process of distributing traffic among different instances 
 
 To create a fault-tolerant system, it's common to run multiple instances of each application. Thus, whenever one service needs to communicate with another, it needs to pick a particular instance to send its request.
 
-There are many algorithms when it comes to load balancing:
+If you know what kind of load-balancing strategy has to be applied when calling this particular dependency, you can provide it in the YAML file, and it is automatically applied. You can choose one of the following load balancing strategies:
 
-- Random selection: Choosing an instance randomly
-- Round-robin: Choosing an instance in the same order each time
-- Least connections: Choosing the instance with the fewest current connections
-- Weighted metric: Using a weighted metric to choose the best instance (for example, CPU or memory usage)
-- IP hash: Using the hash of the client IP to map to an instance
+- STICKY: Once chosen, the instance is always called.
 
+- RANDOM: Picks an instance randomly.
+
+- ROUND_ROBIN: Iterates over instances over and over again.
 
 You must also enable the client-side service discovery and you can as well use the discovery client in your application to lookup for your services instances.
 

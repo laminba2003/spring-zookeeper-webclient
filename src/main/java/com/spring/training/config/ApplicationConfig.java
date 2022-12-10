@@ -4,9 +4,12 @@ import com.spring.training.client.CountryClient;
 import com.spring.training.client.PersonClient;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.zookeeper.discovery.watcher.DependencyState;
+import org.springframework.cloud.zookeeper.discovery.watcher.DependencyWatcherListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -17,14 +20,15 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.netty.http.client.HttpClient;
 
 @Configuration
+@Slf4j
 public class ApplicationConfig {
 
     @Bean
     public WebClient webClient(ClientConfig config) {
         HttpClient httpClient = HttpClient.create()
-                .doOnConnected(connection ->  connection
-                .addHandlerLast(new ReadTimeoutHandler(10))
-                .addHandlerLast(new WriteTimeoutHandler(10)));
+                .doOnConnected(connection -> connection
+                        .addHandlerLast(new ReadTimeoutHandler(10))
+                        .addHandlerLast(new WriteTimeoutHandler(10)));
 
         ClientHttpConnector connector = new ReactorClientHttpConnector(httpClient);
 
@@ -60,5 +64,12 @@ public class ApplicationConfig {
     @ConfigurationProperties(prefix = "remote.services")
     public ClientConfig clientConfig() {
         return new ClientConfig();
+    }
+
+    @Bean
+    DependencyWatcherListener dependencyWatcherListener() {
+        return (String dependencyName, DependencyState newState) -> {
+            log.info("the current state of {} is {}", dependencyName, newState.name());
+        };
     }
 }

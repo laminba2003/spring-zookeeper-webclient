@@ -7,6 +7,11 @@ spring:
   cloud:
     zookeeper:
       connect-string: localhost:2181
+      dependencies:
+        spring-zookeeper:
+          path: /spring-zookeeper
+          loadBalancerType: ROUND_ROBIN
+          required: true
 management:
   endpoints:
     web:
