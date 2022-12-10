@@ -1,4 +1,4 @@
-# Spring WebClient with Consul
+# Spring WebClient with Zookeeper
 
 Spring WebClient is a non-blocking reactive client which helps to perform HTTP request. They introduced this as part of Spring 5. WebClient API’s are introduced as part of replacing existent Spring RestTemplate 
 with these features:
