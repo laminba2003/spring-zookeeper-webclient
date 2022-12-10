@@ -23,10 +23,6 @@ The WebClient is part of spring-webflux module, and we will add it as required d
     <groupId>org.springframework.cloud</groupId>
     <artifactId>spring-cloud-starter-zookeeper-discovery</artifactId>
 </dependency>
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-actuator</artifactId>
-</dependency>
 <dependencyManagement>
     <dependencies>
         <dependency>
