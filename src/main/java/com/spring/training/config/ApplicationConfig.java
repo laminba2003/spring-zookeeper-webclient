@@ -1,7 +1,5 @@
 package com.spring.training.config;
 
-import com.spring.training.client.CountryClient;
-import com.spring.training.client.PersonClient;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -46,16 +44,6 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public PersonClient personClient(WebClient client) {
-        return new PersonClient(client);
-    }
-
-    @Bean
-    public CountryClient countryClient(WebClient client) {
-        return new CountryClient(client);
-    }
-
-    @Bean
     public WebProperties.Resources resources() {
         return new WebProperties.Resources();
     }
@@ -68,8 +56,6 @@ public class ApplicationConfig {
 
     @Bean
     DependencyWatcherListener dependencyWatcherListener() {
-        return (String dependencyName, DependencyState newState) -> {
-            log.info("the current state of {} is {}", dependencyName, newState.name());
-        };
+        return (String dependencyName, DependencyState newState) -> log.info("the current state of {} is {}", dependencyName, newState.name());
     }
 }
