@@ -103,11 +103,10 @@ If you know what kind of load-balancing strategy has to be applied when calling 
 
 - ROUND_ROBIN: Iterates over instances over and over again.
 
-You must also enable the client-side service discovery and you can as well use the discovery client in your application to lookup for your services instances.
+You can as well use the discovery client in your application to lookup for your services instances.
 
 ```java
 @SpringBootApplication
-@EnableDiscoveryClient
 public class Application implements CommandLineRunner {
 
     @Autowired
