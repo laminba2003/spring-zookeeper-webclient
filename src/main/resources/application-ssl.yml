@@ -1,0 +1,15 @@
+server:
+  ssl:
+    enabled: true
+    key-store: classpath:server.jks
+    key-store-password: changeit
+    key-store-type: JKS
+    key-alias: thinktech
+
+remote:
+  services:
+    url: https://spring-zookeeper
+    ssl:
+      key-store: classpath:server.jks
+      key-store-password: changeit
+      key-store-type: JKS
